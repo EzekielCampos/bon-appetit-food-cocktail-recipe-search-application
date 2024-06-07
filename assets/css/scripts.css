@@ -1,1 +1,16 @@
-test
+header {
+    display: flex;
+    border: 5px solid black;
+    color: rgb(47, 18, 153);
+    margin-bottom: 50px;
+}
+
+body {
+    background-image: url('gourmet.jpg');
+}
+
+/* #buttons {
+    display: flex;
+    justify-content: space-around;
+} */
+
