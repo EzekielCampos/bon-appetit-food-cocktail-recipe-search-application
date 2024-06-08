@@ -68,23 +68,23 @@ fetch(cocktailId).then(function(response){
 
 
 
-const listC = "https://the-cocktail-db3.p.rapidapi.com";
+// const listC = "https://the-cocktail-db3.p.rapidapi.com";
 
 
-fetch(listC,{
-    method:"GET",
-    headers:{
-        'x-rapidapi-host': 'the-cocktail-db3.p.rapidapi.com',
-        'x-rapidapi-key': '25a20f3a22msh0df047874d6bf0dp16cf1ejsn7d34746f0d3e'
-    }
-}
-).then(function(response){
+// fetch(listC,{
+//     method:"GET",
+//     headers:{
+//         'x-rapidapi-host': 'the-cocktail-db3.p.rapidapi.com',
+//         'x-rapidapi-key': '25a20f3a22msh0df047874d6bf0dp16cf1ejsn7d34746f0d3e'
+//     }
+// }
+// ).then(function(response){
 
 
-    console.log(response.status);
-    response.json().then(function(data){
+//     console.log(response.status);
+//     response.json().then(function(data){
 
-        console.log(data);
+//         console.log(data);
 
-    })
-})
+//     })
+// })

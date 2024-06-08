@@ -4,12 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/scripts.css">
+    <link rel="stylesheet" href="./assets/css/scripts.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>
+    
 </head>
 <body>
-    
-<p> Testing</p>
 
+
+  <header class="columns is-justify-content-space-between has-background-light">
+    <h1 class="title is-1 has-text-centered has-text-primary p-4 mt-3">Bon Appétit 🍽️ 🍸</h1>
+    <p id = "favorites" class="has-text-center-moible is-size-5 mr-6 mt-6 has-text-centered">Favorites</p>
+  </header>
+
+
+  <main>
+
+    <section class="columns mt-6 mr-3 ml-3">
+
+      <div id="cocktail-display" class="column" style="border: 2px solid #000">
+        <button id="drink-btn" class="button is-primary">Search Cocktails</button>
+
+        <div id="content" class=" mt-4 scroll">
+          <div class="card mt-3">
+            <header class="card-header has-text-centered has-background-light">
+              <p class="card-header-title title" style="margin-left:27%;">Card header</p>
+              <button class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </header>
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+        </div>
+        
+      </div>
+
+
+
+      <div id="dish-display" class="column" style="border: 2px solid #000">
+        <button id="dish-btn" class="button is-link">Search Dishes</button>
+
+        <div id="dishes-content" class="scroll">
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      
+
+
+    </section>
+
+  
+
+  </main>
+    
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
