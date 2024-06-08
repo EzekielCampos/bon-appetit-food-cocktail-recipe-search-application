@@ -1,17 +1,5 @@
-<<<<<<< HEAD
-header{
 
-  
-}
 
-#drink-btn{
-    margin-left: 40%;
-}
-
-#dish-btn{
-    margin-left: 40%;
-
-}
 
 #content{
     overflow-y: scroll
@@ -23,6 +11,10 @@ table {
     width: 100%; 
     border: 0px solid #ddd; 
 } 
+
+#information-for-user{
+    height: 600px;
+}
   
 th, 
 td { 
@@ -86,21 +78,8 @@ td {
     }
 
 } */
-=======
-/* header {
-    display: flex;
-    border: 5px solid black;
-    color: rgb(47, 18, 153);
-    margin-bottom: 50px;
-} */
 
-body {
-    background-image: url('gourmet.jpg');
-}
 
-/* #buttons {
-    display: flex;
-    justify-content: space-around;
-} */
 
->>>>>>> 88fe2de977a0ce2fb4dc1fe9b92e53fdd36cd8db
+
+
