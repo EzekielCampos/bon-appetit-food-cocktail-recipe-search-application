@@ -55,8 +55,17 @@ td {
     height: 20%;
 }
 
-
-
+.content-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .ingredients-list {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 10px; /* Adjust the margin as needed */
+  }
+  
 /* @media (width < 770px){
 
     header{

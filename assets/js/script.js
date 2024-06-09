@@ -46,6 +46,8 @@ fetch(cocktailId).then(function (response) {
   });
 });
 
+//This is the function to Get a Random Food.
+
 $(document).ready(function () {
   // Function to get a random food
   function getRandomFood() {
@@ -69,18 +71,41 @@ $(document).ready(function () {
       });
   }
 
+  // Function to display food data
   function displayFood(data) {
+    // Extract the first meal from the response data
     const food = data.meals[0];
+    // Truncate the instructions to the first 200 characters
     const truncatedInstructions = food.strInstructions.substring(0, 200);
+    // Store the full instructions
     const fullInstructions = food.strInstructions;
+    // Function to extract ingredients
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      if (food[`strIngredient${i}`]) {
+        ingredients.push(food[`strIngredient${i}`]);
+      } else {
+        break;
+      }
+    }
+    // Create the HTML structure for displaying the meal
     const foodHtml = `
       <div class="card mt-3">
-        <div class="card-content">
-          <p class="title">${food.strMeal}</p>
-          <p class="subtitle">${food.strCategory}</p>
-          <img src="${food.strMealThumb}" alt="${
+  <div class="card-content">
+    <div class="columns">
+      <div class="column is-one-third">
+        <img src="${food.strMealThumb}" alt="${
       food.strMeal
-    }" style="width:35%">
+    }" style="width:100%">
+      </div>
+      <div class="column">
+        <p class="title">${food.strMeal}</p>
+        <p class="subtitle">${food.strCategory}</p>
+        <ul class="ingredients-list">
+          ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+        </ul>
+      </div>
+    </div>
           <p class="instructions">
             ${truncatedInstructions}
             <span class="more-text" style="display:none;">${fullInstructions.substring(
@@ -95,38 +120,48 @@ $(document).ready(function () {
         </footer>
       </div>
     `;
-    $("#dish-display").append(foodHtml);
+    // Append the generated HTML to the #content element on the page
+    $("#content").append(foodHtml);
 
-    // Add event listener for the "Read more" link
+    // Add an event listener to the "Read more" link to toggle the visibility of the full instructions
     $(".read-more")
       .last()
       .on("click", function (event) {
+        // Prevent the default link behavior
         event.preventDefault();
-        $(this).siblings(".more-text").toggle(); // Show the hidden text
+        // Toggle the display of the hidden instructions text
+        $(this).siblings(".more-text").toggle();
+        // Toggle the link text between "...Read more" and " Show less"
         $(this).text(
           $(this).text() === "...Read more" ? " Show less" : "...Read more"
-        ); // Toggle the link text
+        );
       });
   }
 
   // Initialize the dialog modal
   let modal = $("#dialog-form").dialog({
-    autoOpen: false,
+    autoOpen: false, // Dialogue does not open automatically
     height: 200,
     width: 200,
-    modal: true,
+    modal: true, // Dialogue is modal (prevents interaction with rest of page)
     buttons: {
+      // Button to search for dishes
       "Search Dishes": function () {
+        // Get the selected option from the dropdown
         const selectedOption = $("#food-type").val();
+        // If the selected option is "A Random Dish", call the getRandomFood function
         if (selectedOption === "random-food-button") {
           getRandomFood();
         }
+        // close the modal dialogue
         modal.dialog("close");
       },
+      // Button to cancel and close the dialogue
       Cancel: function () {
         modal.dialog("close");
       },
     },
+    // Function to handle the dialogue close event
     close: function () {
       modal.dialog("close");
     },
