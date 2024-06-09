@@ -88,3 +88,36 @@ fetch(cocktailId).then(function(response){
 
 //     })
 // })
+
+
+
+ // Creates a modal for when the add task button is clicked
+ let modal = $( "#dialog-form" ).dialog({
+    autoOpen: false,
+    height: 200,
+    width: 200,
+    modal: true,
+    buttons: {
+      // When the add task button is clicked it will add the new task to the page
+      "Search Cocktails":function(){
+        console.log($("#drink-level").val());
+        $("#drink-level").val($("#start").val());
+
+        modal.dialog("close");
+      },
+      Cancel: function() {
+          
+        modal.dialog( "close" );
+      }
+    },
+    close: function() {
+    
+      modal.dialog( "close" );
+    }
+  });
+
+
+  $("#drink-btn").on("click", function(){
+    modal.dialog("open");
+  });
+

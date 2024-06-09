@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bon Appétit</title>
     <link rel="stylesheet" href="./assets/css/scripts.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>   
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css"> 
 </head>
 <body>
 
@@ -192,6 +193,17 @@
 
       </div>
       
+      <div id="dialog-form" title="Drink Level Selection">
+        <form>
+          <label>Choose the degree of difficulty for Cocktail</label>
+          <select name="levels" id="drink-level">
+            <option id="start" value="select">Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="med">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </form>
+      </div>
     </section>
   </main>
 
