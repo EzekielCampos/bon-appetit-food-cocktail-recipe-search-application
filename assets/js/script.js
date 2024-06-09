@@ -79,7 +79,7 @@ $(document).ready(function () {
     const truncatedInstructions = food.strInstructions.substring(0, 200);
     // Store the full instructions
     const fullInstructions = food.strInstructions;
-    // Function to extract ingredients
+    // Simple function to extract ingredients
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       if (food[`strIngredient${i}`]) {
