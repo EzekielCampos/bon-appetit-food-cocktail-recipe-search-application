@@ -3,101 +3,199 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/scripts.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
-    />
-  </head>
-  <body>
-    <header>
-      <h1 class="is-size-1 has-text-centered has-background-danger">
-        Bone-Apple-Teeth
-      </h1>
-    </header>
+    <title>Bon Appétit</title>
+    <link rel="stylesheet" href="./assets/css/scripts.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>    
+</head>
+<body>
 
-    <main>
-      <style type="text/css">
-        body {
-          background-image: url("gourmet.jpg");
-        }
-      </style>
-      <section class="section">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-2">
-              <h1 class="is-size-3 has-text-black">Hungry?</h1>
-              <p class="has-text-black">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Architecto id hic officiis inventore magnam neque totam adipisci
-                aspernatur. Neque aliquid, enim officiis modi at ipsa voluptatum
-                blanditiis iusto reprehenderit adipisci!
-              </p>
-              <button class="button is-size-4 is-success">Food</button>
-            </div>
-            <div class="column is-4">
-              <h1
-                class="is-size-4 has-text-centered has-background-danger has-text-dark"
-              >
-                Favorite Foods
-              </h1>
-              <div class="has-text-centered is-size-4 has-text-light">
-                <ul>
-                  Turkey
-                </ul>
-                <ul>
-                  Chicken
-                </ul>
-                <ul>
-                  Quail
-                </ul>
-                <ul>
-                  Pigeon
-                </ul>
-                <ul>
-                  Dolphin
-                </ul>
-              </div>
-            </div>
-            <div class="column is-4">
-              <h1
-                class="is-size-4 has-text-centered has-background-danger has-text-dark"
-              >
-                Favorite Drinks
-              </h1>
-              <div class="has-text-centered is-size-4 has-text-black">
-                <ul>
-                  Water
-                </ul>
-                <ul>
-                  Capri-sun
-                </ul>
-                <ul>
-                  Kool-aid
-                </ul>
-                <ul>
-                  Cola
-                </ul>
-                <ul>
-                  Beer
-                </ul>
-              </div>
-            </div>
-            <div class="column is-2">
-              <h1 class="is-size-3 has-text-black">Thirsty?</h1>
-              <p class="has-text-black">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Architecto id hic officiis inventore magnam neque totam adipisci
-                aspernatur. Neque aliquid, enim officiis modi at ipsa voluptatum
-                blanditiis iusto reprehenderit adipisci!
-              </p>
-              <button class="button is-size-4 is-info">Drink</button>
-            </div>
+
+  <header class="columns is-justify-content-space-between has-background-light">
+    <h1 class="title is-1 has-text-centered has-text-primary p-4 mt-3">Bon Appétit 🍽️ 🍸</h1>
+    <p id = "favorites" class="has-text-center-moible is-size-5 mr-6 mt-6 has-text-centered">Favorites</p>
+  </header>
+
+
+  <main>
+    <style type="text/css">
+      #information-for-user {
+        background-image: url("./assets/images/gourmet.jpg");
+      }
+    </style>
+
+    <section id="information-for-user">
+      <div class="container">
+        <div id="search-section" class="columns">
+          <div class="column">
+            <h1 class="is-size-3 has-text-black">Hungry?</h1>
+            <p id= "dish-text" class="has-text-black is-size-4">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Architecto id hic officiis inventore magnam neque totam adipisci
+              aspernatur. 
+            </p>
+            <button id="dish-btn" class="button is-primary is-dark is-large mt-6 ml-3">Food</button>
+          </div>
+
+          <!-- <div class="column is-4">
+            <h1 class="is-size-4 has-text-centered has-background-primary-darker has-text-dark">
+              Favorite Foods
+            </h1>
+              <ul id="favorite-dish-list" class="has-text-centered is-size-4 has-text-light">
+                <li>Turkey</li>
+                <li>Chicken</li>
+                <li>Quail</li>
+                <li>Pigeon</li>
+                <li>Dolphin</li>
+          </div>
+
+          <div class="column is-4">
+            <h1 class="is-size-4 has-text-centered has-background-link-light has-text-dark">
+              Favorite Drinks
+            </h1>
+              <ul id="favorite-cocktail-list" class="has-text-centered is-size-4 has-text-black">
+                <li>Capri-sun</li>
+                <li>Kool-aid</li>
+                <li>Cola</li>
+                <li>Beer</li>
+                <li>Water</li>
+              </ul>
+         
+          </div> -->
+
+          <div class="column">
+            <h1 class="is-size-2 has-text-black">Thirsty?</h1>
+            <p class="has-text-black is-size-4">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Architecto id hic officiis inventore magnam neque totam adipisci
+              aspernatur. 
+            </p>
+            <button id="drink-btn" class="button is-large is-info mt-6 ml-3">Drink</button>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+
+    <section id="search-results" class="columns mt-6 mr-3 ml-3">
+      <div id="dish-display" class="column" style="border: 2px solid #000">
+        
+        <div id="content" class=" mt-4 scroll">
+          <h2 class="has-text-centered is-size-3 has-text-primary" style="border-bottom: #000 2px solid;">Food Results</h2>
+          <div class="card mt-3">
+            <header class="card-header has-text-centered has-background-light">
+              <p class="card-header-title title" style="margin-left:27%;">Card header</p>
+              <button class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </header>
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+        </div>
+        
+      </div>
+      <div id="cocktail-display" class="column" style="border: 2px solid #000">
+        <div id="dishes-content" class="scroll">
+          <h2 class="has-text-centered is-size-3 has-text-primary" style="border-bottom: #000 2px solid;">Cocktails Results</h2>
+
+          <div class="card mt-3">
+            <div class="card-content">
+              <p class="title">
+                “There are two hard things in computer science: cache invalidation, naming
+                things, and off-by-one errors.”
+              </p>
+              <p class="subtitle">Jeff Atwood</p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  View on
+                  <a href="https://twitter.com/codinghorror/status/506010907021828096"
+                    >Twitter</a
+                  >
+                </span>
+              </p>
+              <p class="card-footer-item">
+                <span> Share on <a href="#">Facebook</a> </span>
+              </p>
+            </footer>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      
+    </section>
+  </main>
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
