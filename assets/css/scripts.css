@@ -83,6 +83,16 @@ td {
 } */
 
 
+@media (width<720px){
+
+    #information-for-user{
+        height: 800px;
+    }
+
+
+    
+}
+
 
 
 

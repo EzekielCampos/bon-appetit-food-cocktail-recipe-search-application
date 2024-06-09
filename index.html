@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bon Appétit</title>
     <link rel="stylesheet" href="./assets/css/scripts.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"/>    
 </head>
 <body>
 
@@ -27,18 +26,17 @@
     <section id="information-for-user">
       <div class="container">
         <div id="search-section" class="columns">
-          <div class="column is-2">
+          <div class="column">
             <h1 class="is-size-3 has-text-black">Hungry?</h1>
-            <p class="has-text-black">
+            <p id= "dish-text" class="has-text-black is-size-4">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Architecto id hic officiis inventore magnam neque totam adipisci
-              aspernatur. Neque aliquid, enim officiis modi at ipsa voluptatum
-              blanditiis iusto reprehenderit adipisci!
+              aspernatur. 
             </p>
             <button id="dish-btn" class="button is-primary is-dark is-large mt-6 ml-3">Food</button>
           </div>
 
-          <div class="column is-4">
+          <!-- <div class="column is-4">
             <h1 class="is-size-4 has-text-centered has-background-primary-darker has-text-dark">
               Favorite Foods
             </h1>
@@ -62,22 +60,20 @@
                 <li>Water</li>
               </ul>
          
-          </div>
+          </div> -->
 
-          <div class="column is-2">
-            <h1 class="is-size-3 has-text-black">Thirsty?</h1>
-            <p class="has-text-black">
+          <div class="column">
+            <h1 class="is-size-2 has-text-black">Thirsty?</h1>
+            <p class="has-text-black is-size-4">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Architecto id hic officiis inventore magnam neque totam adipisci
-              aspernatur. Neque aliquid, enim officiis modi at ipsa voluptatum
-              blanditiis iusto reprehenderit adipisci!
+              aspernatur. 
             </p>
             <button id="drink-btn" class="button is-large is-info mt-6 ml-3">Drink</button>
           </div>
         </div>
       </div>
     </section>
-
 
     <section id="search-results" class="columns mt-6 mr-3 ml-3">
       <div id="dish-display" class="column" style="border: 2px solid #000">
@@ -197,9 +193,8 @@
       </div>
       
     </section>
-
   </main>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>

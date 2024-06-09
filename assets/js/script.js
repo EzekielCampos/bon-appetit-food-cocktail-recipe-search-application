@@ -1,6 +1,6 @@
 
 
-const filterByIngredient = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+const filterByIngredient = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
 const searchByIngredient = "https://www.themealdb.com/api/json/v1/1/filter.php?i=avocado";
 
