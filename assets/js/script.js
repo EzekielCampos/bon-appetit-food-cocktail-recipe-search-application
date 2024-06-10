@@ -1,70 +1,12 @@
 
+// This variable is where all the result cards will be appended to when they are dynamically created
+const cocktailsResultsBox = $("#cocktails-content");
+const cocktailInput = $("#drink-level")
 
-const filterByIngredient = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
-
-const searchByIngredient = "https://www.themealdb.com/api/json/v1/1/filter.php?i=avocado";
-
-const test = "https://www.themealdb.com/api/json/v1/1/categories.php";
-
-fetch(filterByIngredient).then(function(response){
+// This array will hold the favorite drinks names that the user have saved
+const favoriteCocktails = JSON.parse(localStorage.getItem('drinks')) || [];
 
 
-    console.log(response.status);
-    response.json().then(function(data){
-
-        console.log(data);
-
-    })
-})
-
-fetch(searchByIngredient).then(function(response){
-
-
-    console.log(response.status);
-    response.json().then(function(data){
-
-        console.log(data);
-
-    })
-})
-
-fetch(test).then(function(response){
-
-
-    console.log(response.status);
-    response.json().then(function(data){
-
-        console.log(data);
-
-    })
-})
-
-
-
-const cocktailCategory = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
-
-fetch(cocktailCategory).then(function(response){
-
-
-    console.log(response.status);
-    response.json().then(function(data){
-
-        console.log(data);
-
-    })
-})
-
-const cocktailId = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15300";
-fetch(cocktailId).then(function(response){
-
-
-    console.log(response.status);
-    response.json().then(function(data){
-
-        console.log(data);
-
-    })
-})
 
 
 
@@ -90,21 +32,27 @@ fetch(cocktailId).then(function(response){
 // })
 
 
+function retrieveCocktailsInfo(event){
 
- // Creates a modal for when the add task button is clicked
+event.preventDefault();
+console.log(cocktailInput.val());
+$("#drink-level").val($("#start").val());
+
+
+modal.dialog("close");
+}
+
+
+
+ // Creates a modal to find a cocktail button is clicked
  let modal = $( "#dialog-form" ).dialog({
     autoOpen: false,
     height: 200,
-    width: 200,
+    width: 300,
     modal: true,
     buttons: {
-      // When the add task button is clicked it will add the new task to the page
-      "Search Cocktails":function(){
-        console.log($("#drink-level").val());
-        $("#drink-level").val($("#start").val());
-
-        modal.dialog("close");
-      },
+      // When the find drink button is clicked it will render the results of degree of difficulty the user chose
+      "Search Cocktails":retrieveCocktailsInfo,
       Cancel: function() {
           
         modal.dialog( "close" );
