@@ -9,34 +9,26 @@ const favoriteCocktails = JSON.parse(localStorage.getItem('drinks')) || [];
 
 
 
-
-// const listC = "https://the-cocktail-db3.p.rapidapi.com";
-
-
-// fetch(listC,{
-//     method:"GET",
-//     headers:{
-//         'x-rapidapi-host': 'the-cocktail-db3.p.rapidapi.com',
-//         'x-rapidapi-key': '25a20f3a22msh0df047874d6bf0dp16cf1ejsn7d34746f0d3e'
-//     }
-// }
-// ).then(function(response){
-
-
-//     console.log(response.status);
-//     response.json().then(function(data){
-
-//         console.log(data);
-
-//     })
-// })
-
-
 function retrieveCocktailsInfo(event){
 
+  const drinksResultsArray = [];
+
+  // prevent page from refreshing
 event.preventDefault();
 console.log(cocktailInput.val());
-$("#drink-level").val($("#start").val());
+
+// This url will be the results of the users option to search alcoholic and non-alcholic drinks
+const urlAlcoholFilter = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${cocktailInput.val()}`;
+
+console.log(urlAlcoholFilter);
+
+fetch(urlAlcoholFilter)
+  .then(function(response){
+    console.log(response.status);
+    response.json().then(function(data){
+      console.log(data);
+    })
+  })
 
 
 modal.dialog("close");
