@@ -9,9 +9,8 @@ const favoriteCocktails = JSON.parse(localStorage.getItem('drinks')) || [];
 
 
 
-function retrieveCocktailsInfo(event){
 
-  const drinksResultsArray = [];
+function retrieveCocktailsInfo(event){
 
   // prevent page from refreshing
 event.preventDefault();
@@ -20,15 +19,41 @@ console.log(cocktailInput.val());
 // This url will be the results of the users option to search alcoholic and non-alcholic drinks
 const urlAlcoholFilter = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${cocktailInput.val()}`;
 
-console.log(urlAlcoholFilter);
 
 fetch(urlAlcoholFilter)
   .then(function(response){
     console.log(response.status);
     response.json().then(function(data){
-      console.log(data);
+      console.log(data.drinks.length);
+    
+
+      // This variable gives access to the drinks array that is inside the object that was returned
+      let drinksObjectArray = data.drinks;
+
+
+      // This loop will get the id value of the drink and call another api to get information that will be used to on the page
+      for(index = 0; index < drinksObjectArray.length; index++){
+
+          // This will url will be used to fetch the information with it's id number
+          let searchCocktailById= `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+          console.log(searchCocktailById);
+
+          fetch(searchCocktailById)
+          .then(function(response){
+            console.log(response.status)
+            response.json().then(function(data){
+              console.log(data);
+              console.log(data.drinks[0].strIngredient1);
+
+            })
+          })
+      }
+     
     })
   })
+
+  
+
 
 
 modal.dialog("close");
