@@ -1,11 +1,11 @@
 
 // This variable is where all the result cards will be appended to when they are dynamically created
 const cocktailsResultsBox = $("#cocktails-content");
+
 const cocktailInput = $("#drink-level")
 
 // This array will hold the favorite drinks names that the user have saved
 const favoriteCocktails = JSON.parse(localStorage.getItem('drinks')) || [];
-
 
 
 
@@ -26,6 +26,8 @@ fetch(urlAlcoholFilter)
     response.json().then(function(data){
       // Object returned an array of the drinks from the category selected
       console.log(data.drinks.length);
+      
+      
     
 
       // This variable gives access to the drinks array that is inside the object that was returned
@@ -45,11 +47,17 @@ fetch(urlAlcoholFilter)
             response.json().then(function(data){
               console.log(data);
               console.log(data.drinks[0].strIngredient1);
+              IfyFunction(data);
 
+            })
+            .catch(function(error){
+              console.log(error);
             })
           })
       }
      
+    }) .catch(function(error){
+      console.log(error);
     })
   })
 
