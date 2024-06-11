@@ -24,6 +24,7 @@ fetch(urlAlcoholFilter)
   .then(function(response){
     console.log(response.status);
     response.json().then(function(data){
+      // Object returned an array of the drinks from the category selected
       console.log(data.drinks.length);
     
 
@@ -53,9 +54,6 @@ fetch(urlAlcoholFilter)
   })
 
   
-
-
-
 modal.dialog("close");
 }
 
@@ -76,10 +74,10 @@ modal.dialog("close");
       }
     },
     close: function() {
-    
       modal.dialog( "close" );
     }
   });
+
 
 
   $("#drink-btn").on("click", function(){
