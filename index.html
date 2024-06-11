@@ -57,42 +57,26 @@
                 <form>
                   <label>What are you looking for?</label>
                   <select name="levels" id="food-type">
-                    <option id="start" value="select">What do you need?</option>
+                    <option id="start" value="select">Select Dish</option>
                     <option value="random-food-button">A Random Dish</option>
-                    <!-- <option value="med">Medium</option>
-                    <option value="hard">Hard</option> -->
+                    <option value="vegetarian-food-button">Vegetarian/Vegan</option>
+                    <option value="side-food-button">Side Dish</option>
+                  </select>
+                </form>
+              </div>
+              <div id="cocktail-form" title="Alcohol Level Selection">
+                <form>
+                  <label>Select option for Cocktail</label>
+                  <select name="levels" id="drink-level">
+                    <option id="start" value="select">Alcohol Filter</option>
+                    <option value="alcoholic">Alcoholic</option>
+                    <option value="non_alcoholic">Non alcoholic</option>
+                    <option value="optional_alcohol">Optional alcohol</option>
                   </select>
                 </form>
               </div>
               <div id="foodDisplay"></div>
             </div>
-
-            <!-- <div class="column is-4">
-            <h1 class="is-size-4 has-text-centered has-background-primary-darker has-text-dark">
-              Favorite Foods
-            </h1>
-              <ul id="favorite-dish-list" class="has-text-centered is-size-4 has-text-light">
-                <li>Turkey</li>
-                <li>Chicken</li>
-                <li>Quail</li>
-                <li>Pigeon</li>
-                <li>Dolphin</li>
-          </div>
-
-          <div class="column is-4">
-            <h1 class="is-size-4 has-text-centered has-background-link-light has-text-dark">
-              Favorite Drinks
-            </h1>
-              <ul id="favorite-cocktail-list" class="has-text-centered is-size-4 has-text-black">
-                <li>Capri-sun</li>
-                <li>Kool-aid</li>
-                <li>Cola</li>
-                <li>Beer</li>
-                <li>Water</li>
-              </ul>
-         
-          </div> -->
-
             <div class="column">
               <h1 class="is-size-2 has-text-black">Thirsty?</h1>
               <p class="has-text-black is-size-4">
@@ -117,91 +101,7 @@
             >
               Food Results
             </h2> 
-          </div>
-          <!--  
-          <div class="card mt-3">
-              <header
-                class="card-header has-text-centered has-background-light"
-              >
-                <p class="card-header-title title" style="margin-left: 27%">
-                  Card header
-                </p>
-                <button class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                </button>
-              </header>
-              <div class="card-content">
-                <p class="title">
-                  “There are two hard things in computer science: cache
-                  invalidation, naming things, and off-by-one errors.”
-                </p>
-                <p class="subtitle">Jeff Atwood</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <span>
-                    View on
-                    <a
-                      href="https://twitter.com/codinghorror/status/506010907021828096"
-                      >Twitter</a
-                    >
-                  </span>
-                </p>
-                <p class="card-footer-item">
-                  <span> Share on <a href="#">Facebook</a> </span>
-                </p>
-              </footer>
-            </div>
-
-            <div class="card mt-3">
-              <div class="card-content">
-                <p class="title">
-                  “There are two hard things in computer science: cache
-                  invalidation, naming things, and off-by-one errors.”
-                </p>
-                <p class="subtitle">Jeff Atwood</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <span>
-                    View on
-                    <a
-                      href="https://twitter.com/codinghorror/status/506010907021828096"
-                      >Twitter</a
-                    >
-                  </span>
-                </p>
-                <p class="card-footer-item">
-                  <span> Share on <a href="#">Facebook</a> </span>
-                </p>
-              </footer>
-            </div>
-
-            <div class="card mt-3">
-              <div class="card-content">
-                <p class="title">
-                  “There are two hard things in computer science: cache
-                  invalidation, naming things, and off-by-one errors.”
-                </p>
-                <p class="subtitle">Jeff Atwood</p>
-              </div>
-              <footer class="card-footer">
-                <p class="card-footer-item">
-                  <span>
-                    View on
-                    <a
-                      href="https://twitter.com/codinghorror/status/506010907021828096"
-                      >Twitter</a
-                    >
-                  </span>
-                </p>
-                <p class="card-footer-item">
-                  <span> Share on <a href="#">Facebook</a> </span>
-                </p>
-              </footer>
-            </div> -->
+          </div>   
           </div>
         </div>
         <div
@@ -209,7 +109,7 @@
           class="column"
           style="border: 2px solid #000"
         >
-          <div id="dishes-content" class="scroll">
+          <div id="cocktails-content" class="scroll">
             <h2
               class="has-text-centered is-size-3 has-text-primary"
               style="border-bottom: #000 2px solid"

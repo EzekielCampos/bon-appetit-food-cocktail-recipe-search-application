@@ -1,50 +1,81 @@
-const filterByIngredient =
-  "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
+// This variable is where all the result cards will be appended to when they are dynamically created
+const cocktailsResultsBox = $("#cocktails-content");
+const cocktailInput = $("#drink-level");
+// This array will hold the favorite drinks names that the user have saved
+const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
+function retrieveCocktailsInfo(event) {
+  // prevent page from refreshing
+  event.preventDefault();
+  console.log(cocktailInput.val());
 
-const searchByIngredient =
-  "https://www.themealdb.com/api/json/v1/1/filter.php?i=avocado";
+  // This url will be the results of the users option to search alcoholic and non-alcholic drinks
+  const urlAlcoholFilter = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${cocktailInput.val()}`;
+  fetch(urlAlcoholFilter).then(function (response) {
+    console.log(response.status);
+    response
+      .json()
+      .then(function (data) {
+        // Object returned an array of the drinks from the category selected
+        console.log(data.drinks.length);
+        // This variable gives access to the drinks array that is inside the object that was returned
+        let drinksObjectArray = data.drinks;
+        // This loop will get the id value of the drink and call another api to get information that will be used to on the page
+        for (index = 0; index < drinksObjectArray.length; index++) {
+          // This will url will be used to fetch the information with it's id number
+          let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+          console.log(searchCocktailById);
+          fetch(searchCocktailById).then(function (response) {
+            console.log(response.status);
+            response
+              .json()
+              .then(function (data) {
+                console.log(data);
+                console.log(data.drinks[0].strIngredient1);
+                IfyFunction(data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
+  modal.dialog("close");
+}
+// Creates a modal to find a cocktail button is clicked
+let modal2 = $("#cocktail-form").dialog({
+  autoOpen: false,
+  height: 200,
+  width: 300,
+  modal: true,
+  buttons: {
+    // When the find drink button is clicked it will render the results of degree of difficulty the user chose
+    "Search Cocktails": retrieveCocktailsInfo,
+    Cancel: function () {
+      modal2.dialog("close");
+    },
+  },
+  close: function () {
+    modal2.dialog("close");
+  },
+});
+$("#drink-btn").on("click", function () {
+  modal2.dialog("open");
+});
 
-const test = "https://www.themealdb.com/api/json/v1/1/categories.php";
-
-fetch(filterByIngredient).then(function (response) {
+const foodCategories = "https://www.themealdb.com/api/json/v1/1/categories.php";
+fetch(foodCategories).then(function (response) {
   console.log(response.status);
   response.json().then(function (data) {
     console.log(data);
   });
 });
 
-fetch(searchByIngredient).then(function (response) {
-  console.log(response.status);
-  response.json().then(function (data) {
-    console.log(data);
-  });
-});
-
-fetch(test).then(function (response) {
-  console.log(response.status);
-  response.json().then(function (data) {
-    console.log(data);
-  });
-});
-
-const cocktailCategory =
-  "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
-
-fetch(cocktailCategory).then(function (response) {
-  console.log(response.status);
-  response.json().then(function (data) {
-    console.log(data);
-  });
-});
-
-const cocktailId =
-  "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15300";
-fetch(cocktailId).then(function (response) {
-  console.log(response.status);
-  response.json().then(function (data) {
-    console.log(data);
-  });
-});
+const favoriteFoods = JSON.parse(localStorage.getItem("foods")) || [];
+function retrieveFoodsInfo(event) {}
 
 //This is the function to Get a Random Food.
 
@@ -116,7 +147,7 @@ $(document).ready(function () {
         </div>
         <footer class="card-footer">
           <a href="${food.strYoutube}" class="card-footer-item">Watch Recipe</a>
-          <a href="#" class="card-footer-item">Add to Favorites</a>
+          <button class="card-footer-item">Add to Favorites</button> 
         </footer>
       </div>
     `;
@@ -153,13 +184,18 @@ $(document).ready(function () {
         if (selectedOption === "random-food-button") {
           getRandomFood();
         }
+        if (selectedOption === "vegetarian-food-button") {
+          getVegetarianFood();
+        }
+        if (selectedOption === "side-food-button") {
+          getSideFood();
+        }
         // close the modal dialogue
         modal.dialog("close");
       },
+
       // Button to cancel and close the dialogue
-      Cancel: function () {
-        modal.dialog("close");
-      },
+      Close: getRandomFood,
     },
     // Function to handle the dialogue close event
     close: function () {
@@ -172,6 +208,10 @@ $(document).ready(function () {
     modal.dialog("open");
   });
 });
+
+fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
 
 // const listC = "https://the-cocktail-db3.p.rapidapi.com";
 
