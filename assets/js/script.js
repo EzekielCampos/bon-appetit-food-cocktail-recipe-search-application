@@ -9,10 +9,23 @@ function createCocktailCard(data){
 
   console.log(`Hello ${data.drinks[0].strIngredient1}`);
   let cocktailsObject = data.drinks[0];
+
+  const ingredients = [];
+    for (let i = 1; ; i++) {
+      let numberIngredients = `strIngredient${i}`;
+      console.log(cocktailsObject.numberIngredients);
+      if(!cocktailsObject[numberIngredients]){
+        break;
+      }
+      ingredients.push(cocktailsObject[numberIngredients]);
+      
+    }
+
+
   
-  const cocktailHtml = `
-      <div class="card mt-3">
-  <div class="card-content">
+  const cocktailHtml = 
+  `<div class="card mt-3">
+    <div class="card-content">
     <div class="columns">
       <div class="column is-one-third">
         <img src="${cocktailsObject.strDrinkThumb}" style="width:150%">
@@ -20,20 +33,63 @@ function createCocktailCard(data){
       <div class="column">
         <p class="title">${cocktailsObject.strDrink}</p>
         <p class="subtitle">${cocktailsObject.strAlcoholic}</p>
-        <ul class="ingredients-list">
-          <li>${cocktailsObject.strIngredient1}</li>
-        </ul>
+        <p class = "mr-2"style="color:red">Ingredients:</h3>
+        <ol class="ingredients-list">
+             ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+        </ol>
       </div>
     </div>
           <p class="instructions">
-        ${cocktailsObject.strInstructions}
+        Directions: ${cocktailsObject.strInstructions}
           </p>
         </div>
         <footer class="card-footer">
           <button class="card-footer-item">Add to Favorites</button> 
         </footer>
-      </div>
-    `;
+      </div>`
+    ;
+
+
+    // const cocktailCard = $("<div>").attr("class", "card mt-3");
+
+    // const cardContent = $("<div>").attr("class", "card-content");
+
+    // const cardColumns = $("<div>").attr("class", "columns");
+
+    // const holderForImage  = $("<div>").attr("class", "column is-one-third");
+    // const imageCocktail = $("<img>").attr("src", `${cocktailsObject.strDrinkThumb}`).attr("style", "width:150%");
+    // holderForImage.append(imageCocktail);
+
+    // const holderForDrinkInfo = $("<div>").attr("class", "column");
+    // const title = $("<p>").attr("class", "title").text(cocktailsObject.strDrink);
+    // const drinkCategory = $("<p>").attr("class", "subtitle").text(cocktailsObject.strAlcoholic);
+    //   const listofIngredients = $("<ul>").attr("class", "ingredients-list");
+
+    //     for (let index = 1;;index++){
+    //       let numberIngredients = `strIngredient${index}`;
+    //       if (!numberIngredients)
+    //         break;
+    //       const itemDrink = $("<li>").text(cocktailsObject.numberIngredients);
+    //       listofIngredients.append(itemDrink);
+    //     }
+      
+
+    //     holderForDrinkInfo.append(title, drinkCategory,listofIngredients);
+
+    //     const instructionsForCocktail = $("<p>").attr("class", "cocktail-instructions").text(cocktailsObject.strInstructions);
+    //       cardContent.append(holderForImage,holderForDrinkInfo,instructionsForCocktail);
+
+    //     const cardFooter = ("<footer>").attr("class","card-footer");
+    //       const buttonInFooter = ("<button>").attr("class", "card-footer-item").text(Favorite);
+    //         cardFooter.append(buttonInFooter);
+
+    //         cocktailCard.append(cardContent, cardFooter);
+
+
+
+
+
+
 
 cocktailsResultsBox.append(cocktailHtml);
 
@@ -250,21 +306,4 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
   .then((res) => res.json())
   .then((data) => console.log(data));
 
-// const listC = "https://the-cocktail-db3.p.rapidapi.com";
 
-// fetch(listC,{
-//     method:"GET",
-//     headers:{
-//         'x-rapidapi-host': 'the-cocktail-db3.p.rapidapi.com',
-//         'x-rapidapi-key': '25a20f3a22msh0df047874d6bf0dp16cf1ejsn7d34746f0d3e'
-//     }
-// }
-// ).then(function(response){
-
-//     console.log(response.status);
-//     response.json().then(function(data){
-
-//         console.log(data);
-
-//     })
-// })
