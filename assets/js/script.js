@@ -6,6 +6,7 @@ const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
 
 
 function createCocktailCard(data){
+  
 
   console.log(`Hello ${data.drinks[0].strIngredient1}`);
   let cocktailsObject = data.drinks[0];
@@ -43,8 +44,8 @@ function createCocktailCard(data){
         Directions: ${cocktailsObject.strInstructions}
           </p>
         </div>
-        <footer class="card-footer">
-          <button class="card-footer-item">Add to Favorites</button> 
+        <footer class="card-footer has-background-warning">
+          <button id="fav-btn" data-name="${cocktailsObject.strDrink} 🍸" class="card-footer-item">Add to Favorites</button> 
         </footer>
       </div>`
     ;
@@ -110,6 +111,10 @@ function retrieveCocktailsInfo(event) {
         console.log(data.drinks.length);
         // This variable gives access to the drinks array that is inside the object that was returned
         let drinksObjectArray = data.drinks;
+        // This will empty the box for a new search each time
+        cocktailsResultsBox.empty();
+        let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Cocktail Results");
+        cocktailsResultsBox.append(resultsTitle);
         // This loop will get the id value of the drink and call another api to get information that will be used to on the page
         for (let index = 0; index < drinksObjectArray.length; index++) {
           // This will url will be used to fetch the information with it's id number
