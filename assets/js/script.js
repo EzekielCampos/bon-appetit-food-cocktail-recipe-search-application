@@ -7,7 +7,6 @@ const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
 
 function createCocktailCard(data){
   
-
   console.log(`Hello ${data.drinks[0].strIngredient1}`);
   let cocktailsObject = data.drinks[0];
 
@@ -22,8 +21,6 @@ function createCocktailCard(data){
       
     }
 
-
-  
   const cocktailHtml = 
   `<div class="card mt-3">
     <div class="card-content">
@@ -49,45 +46,6 @@ function createCocktailCard(data){
         </footer>
       </div>`
     ;
-
-
-    // const cocktailCard = $("<div>").attr("class", "card mt-3");
-
-    // const cardContent = $("<div>").attr("class", "card-content");
-
-    // const cardColumns = $("<div>").attr("class", "columns");
-
-    // const holderForImage  = $("<div>").attr("class", "column is-one-third");
-    // const imageCocktail = $("<img>").attr("src", `${cocktailsObject.strDrinkThumb}`).attr("style", "width:150%");
-    // holderForImage.append(imageCocktail);
-
-    // const holderForDrinkInfo = $("<div>").attr("class", "column");
-    // const title = $("<p>").attr("class", "title").text(cocktailsObject.strDrink);
-    // const drinkCategory = $("<p>").attr("class", "subtitle").text(cocktailsObject.strAlcoholic);
-    //   const listofIngredients = $("<ul>").attr("class", "ingredients-list");
-
-    //     for (let index = 1;;index++){
-    //       let numberIngredients = `strIngredient${index}`;
-    //       if (!numberIngredients)
-    //         break;
-    //       const itemDrink = $("<li>").text(cocktailsObject.numberIngredients);
-    //       listofIngredients.append(itemDrink);
-    //     }
-      
-
-    //     holderForDrinkInfo.append(title, drinkCategory,listofIngredients);
-
-    //     const instructionsForCocktail = $("<p>").attr("class", "cocktail-instructions").text(cocktailsObject.strInstructions);
-    //       cardContent.append(holderForImage,holderForDrinkInfo,instructionsForCocktail);
-
-    //     const cardFooter = ("<footer>").attr("class","card-footer");
-    //       const buttonInFooter = ("<button>").attr("class", "card-footer-item").text(Favorite);
-    //         cardFooter.append(buttonInFooter);
-
-    //         cocktailCard.append(cardContent, cardFooter);
-
-
-
 
 
 
@@ -128,6 +86,7 @@ function retrieveCocktailsInfo(event) {
                 console.log(data.drinks[0].strIngredient1);
                 let test =1;
                 createCocktailCard(data);
+                cocktailInput.val('');
               })
               .catch(function (error) {
                 console.log(error);
@@ -139,6 +98,7 @@ function retrieveCocktailsInfo(event) {
         console.log(error);
       });
   });
+
   modal2.dialog("close");
 }
 // Creates a modal to find a cocktail button is clicked
@@ -151,10 +111,12 @@ let modal2 = $("#cocktail-form").dialog({
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
     "Search Cocktails": retrieveCocktailsInfo,
     Cancel: function () {
+      cocktailInput.val('');
       modal2.dialog("close");
     },
   },
   close: function () {
+    cocktailInput.val("");
     modal2.dialog("close");
   },
 });
