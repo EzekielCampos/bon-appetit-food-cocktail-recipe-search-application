@@ -3,35 +3,119 @@ const cocktailsResultsBox = $("#cocktails-content");
 const cocktailInput = $("#drink-level");
 // This array will hold the favorite drinks names that the user have saved
 const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
+// This will keep track of which drink from alcoholic section array it is currently on while it is being iterated through
+let alcoholicCategoryIndex = 0;
+// This will keep track of which drink from the non-alcoholic section array it is currently on while it is being iterated through
+let nonAlcoholicIndex = 0;
+
+
+function createCocktailCard(data){
+  
+  console.log(`Hello ${data.drinks[0].strIngredient1}`);
+  let cocktailsObject = data.drinks[0];
+
+  const ingredients = [];
+    for (let i = 1; ; i++) {
+      let numberIngredients = `strIngredient${i}`;
+      console.log(cocktailsObject.numberIngredients);
+      if(!cocktailsObject[numberIngredients]){
+        break;
+      }
+      ingredients.push(cocktailsObject[numberIngredients]);
+      
+    }
+
+  const cocktailHtml = 
+  `<div class="card mt-3">
+    <div class="card-content">
+    <div class="columns">
+      <div class="column is-one-third">
+        <img src="${cocktailsObject.strDrinkThumb}" style="width:150%">
+      </div>
+      <div class="column">
+        <p class="title">${cocktailsObject.strDrink}</p>
+        <p class="subtitle">${cocktailsObject.strAlcoholic}</p>
+        <p class = "mr-2"style="color:red">Ingredients:</h3>
+        <ol class="ingredients-list">
+             ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+        </ol>
+      </div>
+    </div>
+          <p class="instructions">
+        Directions: ${cocktailsObject.strInstructions}
+          </p>
+        </div>
+        <footer class="card-footer has-background-warning">
+          <button id="fav-btn" data-name="${cocktailsObject.strDrink} 🍸" class="card-footer-item">Add to Favorites</button> 
+        </footer>
+      </div>`
+    ;
+
+
+
+
+cocktailsResultsBox.append(cocktailHtml);
+
+}
+
 function retrieveCocktailsInfo(event) {
   // prevent page from refreshing
   event.preventDefault();
   console.log(cocktailInput.val());
-
+  // This variable will be used in the loop section to keep track of what category the user chose when the api is called
+let category = cocktailInput.val();
   // This url will be the results of the users option to search alcoholic and non-alcholic drinks
   const urlAlcoholFilter = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${cocktailInput.val()}`;
   fetch(urlAlcoholFilter).then(function (response) {
     console.log(response.status);
-    response
-      .json()
+    return response.json()
       .then(function (data) {
         // Object returned an array of the drinks from the category selected
         console.log(data.drinks.length);
         // This variable gives access to the drinks array that is inside the object that was returned
         let drinksObjectArray = data.drinks;
+        // This will empty the box for a new search each time
+        cocktailsResultsBox.empty();
+        let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Cocktail Results");
+        cocktailsResultsBox.append(resultsTitle);
         // This loop will get the id value of the drink and call another api to get information that will be used to on the page
-        for (index = 0; index < drinksObjectArray.length; index++) {
+        for (let index = 0; index < 9; index++) {
+          // This variable will hold the url that will call the api to get the specific drinks information
+          let searchCocktailById;
+          // This conditional allows additional drinks to be rendered from this category nine at a time and continue through the array of drinks
+          if(category === "alcoholic"){
+            // If the index reaches the maximum length it is reset to start from the beginning of the array to continue displaying
+            if(alcoholicCategoryIndex === drinksObjectArray.length){
+              alcoholicCategoryIndex = 0;
+            }
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[alcoholicCategoryIndex].idDrink}`;
+            // Increse the index each iteration to go to next item in the list
+            alcoholicCategoryIndex++
+
+          }
+          //If the non-alcoholic category is selected then it will go through the array and output the drinks nine at a time
+          else if(category=== "non_alcoholic"){
+            if(nonAlcoholicIndex === drinksObjectArray.length){
+              nonAlcoholicIndex = 0;
+            }
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[nonAlcoholicIndex].idDrink}`;
+          nonAlcoholicIndex++
+
+          }
+          else{
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+
+          }
           // This will url will be used to fetch the information with it's id number
-          let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+          // let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
           console.log(searchCocktailById);
           fetch(searchCocktailById).then(function (response) {
             console.log(response.status);
-            response
-              .json()
+            return response.json()
               .then(function (data) {
                 console.log(data);
                 console.log(data.drinks[0].strIngredient1);
-                IfyFunction(data);
+                createCocktailCard(data);
               })
               .catch(function (error) {
                 console.log(error);
@@ -43,7 +127,8 @@ function retrieveCocktailsInfo(event) {
         console.log(error);
       });
   });
-  modal.dialog("close");
+
+  modal2.dialog("close");
 }
 // Creates a modal to find a cocktail button is clicked
 let modal2 = $("#cocktail-form").dialog({
@@ -55,10 +140,12 @@ let modal2 = $("#cocktail-form").dialog({
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
     "Search Cocktails": retrieveCocktailsInfo,
     Cancel: function () {
+      cocktailInput.val('');
       modal2.dialog("close");
     },
   },
   close: function () {
+    cocktailInput.val("");
     modal2.dialog("close");
   },
 });
@@ -193,9 +280,11 @@ $(document).ready(function () {
         // close the modal dialogue
         modal.dialog("close");
       },
-
-      // Button to cancel and close the dialogue
-      Close: getRandomFood,
+"Surprise me": function () {
+        getRandomFood();
+        modal.dialog("close");
+      },
+    
     },
     // Function to handle the dialogue close event
     close: function () {
@@ -213,21 +302,5 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
   .then((res) => res.json())
   .then((data) => console.log(data));
 
-// const listC = "https://the-cocktail-db3.p.rapidapi.com";
 
-// fetch(listC,{
-//     method:"GET",
-//     headers:{
-//         'x-rapidapi-host': 'the-cocktail-db3.p.rapidapi.com',
-//         'x-rapidapi-key': '25a20f3a22msh0df047874d6bf0dp16cf1ejsn7d34746f0d3e'
-//     }
-// }
-// ).then(function(response){
 
-//     console.log(response.status);
-//     response.json().then(function(data){
-
-//         console.log(data);
-
-//     })
-// })
