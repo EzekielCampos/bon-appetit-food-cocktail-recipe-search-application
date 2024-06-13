@@ -3,6 +3,8 @@ const cocktailsResultsBox = $("#cocktails-content");
 const cocktailInput = $("#drink-level");
 // This array will hold the favorite drinks names that the user have saved
 const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
+let alcoholicCategoryIndex = 0;
+let nonAlcoholicIndex = 0;
 
 
 function createCocktailCard(data){
@@ -58,7 +60,8 @@ function retrieveCocktailsInfo(event) {
   // prevent page from refreshing
   event.preventDefault();
   console.log(cocktailInput.val());
-
+  // This variable will be used in the loop section to keep track of what category the user chose when the api is called
+let category = cocktailInput.val();
   // This url will be the results of the users option to search alcoholic and non-alcholic drinks
   const urlAlcoholFilter = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${cocktailInput.val()}`;
   fetch(urlAlcoholFilter).then(function (response) {
@@ -74,9 +77,35 @@ function retrieveCocktailsInfo(event) {
         let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Cocktail Results");
         cocktailsResultsBox.append(resultsTitle);
         // This loop will get the id value of the drink and call another api to get information that will be used to on the page
-        for (let index = 0; index < drinksObjectArray.length; index++) {
+        for (let index = 0; index < 9; index++) {
+          // This variable will hold the url that will call the api to get the specific drinks information
+          let searchCocktailById;
+          // This conditional allows additional drinks to be rendered from this category nine at a time and continue through the array of drinks
+          if(category === "alcoholic"){
+            // If the index reaches the maximum length it is reset to start from the beginning of the array to continue displaying
+            if(alcoholicCategoryIndex === drinksObjectArray.length){
+              alcoholicCategoryIndex = 0;
+            }
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[alcoholicCategoryIndex].idDrink}`;
+            // Increse the index each iteration to go to next item in the list
+            alcoholicCategoryIndex++
+
+          }
+          //If the non-alcoholic category is selected then it will go through the array and output the drinks nine at a time
+          else if(category=== "non_alcoholic"){
+            if(nonAlcoholicIndex === drinksObjectArray.length){
+              nonAlcoholicIndex = 0;
+            }
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[nonAlcoholicIndex].idDrink}`;
+          nonAlcoholicIndex++
+
+          }
+          else{
+            searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+
+          }
           // This will url will be used to fetch the information with it's id number
-          let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
+          // let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
           console.log(searchCocktailById);
           fetch(searchCocktailById).then(function (response) {
             console.log(response.status);
@@ -84,9 +113,7 @@ function retrieveCocktailsInfo(event) {
               .then(function (data) {
                 console.log(data);
                 console.log(data.drinks[0].strIngredient1);
-                let test =1;
                 createCocktailCard(data);
-                cocktailInput.val('');
               })
               .catch(function (error) {
                 console.log(error);
