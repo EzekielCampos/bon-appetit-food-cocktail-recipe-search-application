@@ -9,6 +9,8 @@ let alcoholicCategoryIndex = 0;
 let nonAlcoholicIndex = 0;
 
 
+
+
 function createCocktailCard(data){
   
   console.log(`Hello ${data.drinks[0].strIngredient1}`);
@@ -51,12 +53,25 @@ function createCocktailCard(data){
       </div>`
     ;
 
-
-
-
 cocktailsResultsBox.append(cocktailHtml);
 
 }
+
+function randomCocktailSelection(event){
+
+  event.preventDefault();
+
+  const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+
+  fetch(apiUrl).then(function(response){
+    return response.json().then(function(data){
+      console.log(data);
+      createCocktailCard(data);
+    })
+  })
+modal2.dialog("close");
+}
+
 
 function retrieveCocktailsInfo(event) {
   // prevent page from refreshing
@@ -139,10 +154,7 @@ let modal2 = $("#cocktail-form").dialog({
   buttons: {
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
     "Search Cocktails": retrieveCocktailsInfo,
-    Cancel: function () {
-      cocktailInput.val('');
-      modal2.dialog("close");
-    },
+    "Surprise Me": randomCocktailSelection,
   },
   close: function () {
     cocktailInput.val("");
