@@ -8,6 +8,9 @@ let alcoholicCategoryIndex = 0;
 // This will keep track of which drink from the non-alcoholic section array it is currently on while it is being iterated through
 let nonAlcoholicIndex = 0;
 
+const foodInput = $("#food-type");
+const foodResultsBox = $("#content");
+
 
 function createCocktailCard(data){
   
@@ -24,7 +27,7 @@ function createCocktailCard(data){
       ingredients.push(cocktailsObject[numberIngredients]);
       
     }
-
+    
   const cocktailHtml = 
   `<div class="card mt-3">
     <div class="card-content">
@@ -51,11 +54,19 @@ function createCocktailCard(data){
       </div>`
     ;
 
-
-
-
 cocktailsResultsBox.append(cocktailHtml);
+}
 
+
+function randomCocktail(event){
+  event.preventDefault;
+  const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+fetch(url).then(function (response){
+  return response.json().then(function(data){
+    console.log(data.drinks[0].strDrink);
+    createCocktailCard(data.drinks[0]);
+  })
+})
 }
 
 function retrieveCocktailsInfo(event) {
@@ -80,7 +91,7 @@ let category = cocktailInput.val();
         cocktailsResultsBox.append(resultsTitle);
         // This loop will get the id value of the drink and call another api to get information that will be used to on the page
         for (let index = 0; index < 9; index++) {
-          // This variable will hold the url that will call the api to get the specific drinks information
+          // This variable will hold the url that will call the api to get the information with the drinks id number
           let searchCocktailById;
           // This conditional allows additional drinks to be rendered from this category nine at a time and continue through the array of drinks
           if(category === "alcoholic"){
@@ -104,11 +115,7 @@ let category = cocktailInput.val();
           }
           else{
             searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
-
           }
-          // This will url will be used to fetch the information with it's id number
-          // let searchCocktailById = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksObjectArray[index].idDrink}`;
-          console.log(searchCocktailById);
           fetch(searchCocktailById).then(function (response) {
             console.log(response.status);
             return response.json()
@@ -139,10 +146,7 @@ let modal2 = $("#cocktail-form").dialog({
   buttons: {
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
     "Search Cocktails": retrieveCocktailsInfo,
-    Cancel: function () {
-      cocktailInput.val('');
-      modal2.dialog("close");
-    },
+    Random: randomCocktail,
   },
   close: function () {
     cocktailInput.val("");
@@ -153,20 +157,58 @@ $("#drink-btn").on("click", function () {
   modal2.dialog("open");
 });
 
-const foodCategories = "https://www.themealdb.com/api/json/v1/1/categories.php";
-fetch(foodCategories).then(function (response) {
-  console.log(response.status);
-  response.json().then(function (data) {
-    console.log(data);
-  });
-});
-
-const favoriteFoods = JSON.parse(localStorage.getItem("foods")) || [];
-function retrieveFoodsInfo(event) {}
-
-//This is the function to Get a Random Food.
 
 $(document).ready(function () {
+  function retrieveMealInfo(event) {
+    event.preventDefault();
+    console.log(foodInput.val());
+    const foodApiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${foodInput.val()}`;
+    console.log(foodApiUrl);
+    // Clear previous results
+    $("#meal-container").empty();
+    foodResultsBox.empty();
+    let foodResultsTitle = $("<h2>")
+      .attr("class", "has-text-centered is-size-3 has-text-primary")
+      .attr("style", "border-bottom: #000 2px solid")
+      .text("Food Results");
+    foodResultsBox.append(foodResultsTitle);
+    fetch(foodApiUrl)
+      .then(function (response) {
+        console.log(response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        let mealsObjectArray = data.meals;
+        if (!mealsObjectArray || mealsObjectArray.length === 0) {
+          throw new Error("No meals found for the given category");
+        }
+        // Fetch detailed information for each meal
+        return Promise.all(
+          mealsObjectArray.map((meal) => {
+            const searchFoodById = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`;
+            console.log(searchFoodById);
+            return fetch(searchFoodById).then((response) => response.json());
+          })
+        );
+      })
+      .then((mealsDetails) => {
+        mealsDetails.forEach((mealData) => {
+          if (!mealData.meals || mealData.meals.length === 0) {
+            throw new Error("No details found for the meal");
+          }
+          displayFood(mealData); // Use the common display function
+        });
+        modal.dialog("close"); // Close the modal after displaying the results
+      })
+      .catch(function (error) {
+        console.log(error);
+        $("#meal-container").text(
+          "An error occurred while fetching the meal data. Please try again."
+        );
+      });
+    // Reset form elements in the modal
+    foodInput.val(""); // Assuming foodInput is an input field
+  }
   // Function to get a random food
   function getRandomFood() {
     const foodRandom = {
@@ -179,7 +221,6 @@ $(document).ready(function () {
         "x-rapidapi-host": "themealdb.p.rapidapi.com",
       },
     };
-
     $.ajax(foodRandom)
       .done(function (response) {
         displayFood(response);
@@ -188,7 +229,6 @@ $(document).ready(function () {
         console.error("Error: " + textStatus, errorThrown);
       });
   }
-
   // Function to display food data
   function displayFood(data) {
     // Extract the first meal from the response data
@@ -201,7 +241,9 @@ $(document).ready(function () {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       if (food[`strIngredient${i}`]) {
-        ingredients.push(food[`strIngredient${i}`]);
+        ingredients.push(
+          `${food[`strIngredient${i}`]} - ${food[`strMeasure${i}`]}`
+        );
       } else {
         break;
       }
@@ -234,13 +276,14 @@ $(document).ready(function () {
         </div>
         <footer class="card-footer">
           <a href="${food.strYoutube}" class="card-footer-item">Watch Recipe</a>
-          <button class="card-footer-item">Add to Favorites</button> 
+          <button id="fav-btn" data-name="${
+            food.strMeal
+          } 🍽️" class="card-footer-item">Add to Favorites</button>
         </footer>
       </div>
     `;
     // Append the generated HTML to the #content element on the page
     $("#content").append(foodHtml);
-
     // Add an event listener to the "Read more" link to toggle the visibility of the full instructions
     $(".read-more")
       .last()
@@ -255,52 +298,29 @@ $(document).ready(function () {
         );
       });
   }
-
   // Initialize the dialog modal
   let modal = $("#dialog-form").dialog({
     autoOpen: false, // Dialogue does not open automatically
-    height: 200,
-    width: 200,
+    height: 350,
+    width: 300,
     modal: true, // Dialogue is modal (prevents interaction with rest of page)
     buttons: {
       // Button to search for dishes
-      "Search Dishes": function () {
-        // Get the selected option from the dropdown
-        const selectedOption = $("#food-type").val();
-        // If the selected option is "A Random Dish", call the getRandomFood function
-        if (selectedOption === "random-food-button") {
-          getRandomFood();
-        }
-        if (selectedOption === "vegetarian-food-button") {
-          getVegetarianFood();
-        }
-        if (selectedOption === "side-food-button") {
-          getSideFood();
-        }
-        // close the modal dialogue
-        modal.dialog("close");
-      },
-"Surprise me": function () {
+      "Search Dishes": retrieveMealInfo,
+      // Button to cancel and close the dialogue
+      "Surprise me": function () {
         getRandomFood();
         modal.dialog("close");
       },
-    
     },
     // Function to handle the dialogue close event
     close: function () {
       modal.dialog("close");
     },
   });
-
   // Open the modal when the Food button is clicked
   $("#food-btn").on("click", function () {
     modal.dialog("open");
   });
 });
-
-fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
-  .then((res) => res.json())
-  .then((data) => console.log(data));
-
-
 
