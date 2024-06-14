@@ -149,7 +149,7 @@ let category = cocktailInput.val();
 let modal2 = $("#cocktail-form").dialog({
   autoOpen: false,
   height: 200,
-  width: 300,
+  width: 338,
   modal: true,
   buttons: {
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
