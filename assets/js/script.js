@@ -58,15 +58,24 @@ cocktailsResultsBox.append(cocktailHtml);
 }
 
 
-function randomCocktail(event){
-  event.preventDefault;
-  const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-fetch(url).then(function (response){
-  return response.json().then(function(data){
-    console.log(data.drinks[0].strDrink);
-    createCocktailCard(data.drinks[0]);
+
+function randomCocktailSelection(event){
+
+  event.preventDefault();
+
+  const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+  cocktailsResultsBox.empty();
+  let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Cocktail Results");
+  cocktailsResultsBox.append(resultsTitle);
+
+
+  fetch(apiUrl).then(function(response){
+    return response.json().then(function(data){
+      console.log(data);
+      createCocktailCard(data);
+    })
   })
-})
+modal2.dialog("close");
 }
 
 function retrieveCocktailsInfo(event) {
@@ -141,12 +150,12 @@ let category = cocktailInput.val();
 let modal2 = $("#cocktail-form").dialog({
   autoOpen: false,
   height: 200,
-  width: 300,
+  width: 338,
   modal: true,
   buttons: {
     // When the find drink button is clicked it will render the results of degree of difficulty the user chose
     "Search Cocktails": retrieveCocktailsInfo,
-    Random: randomCocktail,
+    "Surprise Me": randomCocktailSelection,
   },
   close: function () {
     cocktailInput.val("");
