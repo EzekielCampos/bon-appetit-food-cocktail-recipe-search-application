@@ -1,8 +1,8 @@
 // This variable is where all the result cards will be appended to when they are dynamically created
 const cocktailsResultsBox = $("#cocktails-content");
 const cocktailInput = $("#drink-level");
-// This array will hold the favorite drinks names that the user have saved
-const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
+// This array will hold the favorite items that the user have saved
+const favoriteArray = JSON.parse(localStorage.getItem("favorite")) || [];
 // This will keep track of which drink from alcoholic section array it is currently on while it is being iterated through
 let alcoholicCategoryIndex = 0;
 // This will keep track of which drink from the non-alcoholic section array it is currently on while it is being iterated through
