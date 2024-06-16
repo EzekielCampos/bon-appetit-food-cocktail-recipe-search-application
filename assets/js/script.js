@@ -66,6 +66,9 @@ function randomCocktailSelection(event){
   fetch(apiUrl).then(function(response){
     return response.json().then(function(data){
       console.log(data);
+      cocktailsResultsBox.empty();
+      let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Cocktail Results");
+      cocktailsResultsBox.append(resultsTitle);
       createCocktailCard(data);
     })
   })
@@ -293,6 +296,10 @@ $(document).ready(function () {
         modal.dialog("close");
       },
 "Surprise me": function () {
+  $("#content").empty();
+  let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Food Results");
+  $("#content").append(resultsTitle);
+
         getRandomFood();
         modal.dialog("close");
       },
