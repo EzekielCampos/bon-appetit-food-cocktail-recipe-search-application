@@ -89,6 +89,13 @@ td {
 }
 
 
-
+body { padding: 2em; } a { text-decoration: none; color: #fff; }
+/**** ****/
+div#nav { position: relative; } div#nav a { padding: 5px 15px 5px; }
+.dropdown-toggle { padding: 0;  }
+/**** ****/
+ul.dropdown { display: none;  }
+ul.dropdown li { list-style-type: none; }
+ul.dropdown li a { text-decoration: none; padding: 0em 1em; display: block; }
 
 

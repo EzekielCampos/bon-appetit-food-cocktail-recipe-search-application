@@ -333,3 +333,48 @@ $(document).ready(function () {
   });
 });
 
+const favoriteArray = JSON.parse(localStorage.getItem("favorite")) || [];
+// When the favorite button is clicked this functin will run to collect the name of the drink
+function addToFavorites(event){
+  // Targets the button that was clicked and gets the name of the drink that is stored in the dataset attribute of the button
+  const targetFavorite = event.target.dataset.name;
+  console.log(targetFavorite);
+  // Push the name of the drink into the favorite array
+  favoriteArray.push(targetFavorite);
+  console.log(favoriteArray);
+  // Save the updated version into local storage
+  localStorage.setItem("favorite", JSON.stringify(favoriteArray));
+}
+// This event listener will wait for any button that is clicked that has an id of fav-btn and run the function
+$(document).on("click", "#fav-btn",addToFavorites);
+
+
+
+
+
+$(".select").on("click", function(){
+
+  const title = $("<option>").text("Favorites");
+  $("#favorite-list").empty();
+  if(!favoriteArray.length){
+    let list = $("<option>").text("Empty");
+    
+  
+    $("#favorite-list").append(title, list);
+  }
+
+  else{
+    $("#favorite-list").append(title);
+
+    for (favorite of favoriteArray){
+  
+      let list = $("<option>").text(favorite);
+      console.log(favorite);
+      $("#favorite-list").append(list);
+    
+    
+    }
+  
+  }
+
+});
