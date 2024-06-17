@@ -1,5 +1,44 @@
 
+/* This is the height of the background image  */
+#information-for-user{
+    height: 600px;
+}
 
+#search-results{
+    height: 20%;
+}
+
+.content-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+
+
+/* Adjust the size of the background image when the page shrinks */
+@media (width<720px){
+
+    #information-for-user{
+        height: 800px;
+    }
+
+
+    
+}
+
+/* Adjust the size of the text to fit on the screen when it shrinks */
+@media (width < 767px){
+    #cocktails-text{
+        font-size: 16px !important;
+    }
+    #dish-text{
+        font-size:16px !important;
+    }
+}
+
+
+
+/* This whole section allows the results box to be scrollable to insert many items without extending the page  */
 #content{
     overflow-y: scroll
 }
@@ -49,56 +88,7 @@ td {
     height: 400px; 
     overflow-y: scroll; 
 } 
-#information-for-user{
-    height: 600px;
-}
-
-#search-results{
-    height: 20%;
-}
-
-.content-container {
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  .ingredients-list {
-    list-style-type: none;
-    padding: 0;
-    margin-left: 10px; /* Adjust the margin as needed */
-  }
-  
-
-
-
-.cocktail-card {
-    margin-bottom: 20px;
-}
-.card-img-top {
-    width: 80%;
-    height: auto;
-}
-
-
-@media (width<720px){
-
-    #information-for-user{
-        height: 800px;
-    }
-
-
-    
-}
-
-@media (width < 767px){
-    #cocktails-text{
-        font-size: 16px !important;
-    }
-    #dish-text{
-        font-size:16px !important;
-    }
-}
-
+/* ------------------------------------- */
 
 
 

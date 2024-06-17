@@ -21,27 +21,30 @@
       <h1 class="title is-1 has-text-centered has-text-primary p-4 mt-3">
         Bon Appétit 🍽️ 🍸
       </h1>
+      <!-- This select will be a dropdown so that user can view their favorites -->
       <div class="select is-small mr-6 mt-6">
         <select id="favorite-list">
           <option>Favorites</option>
-         
         </select>
       </div>
 
     </header>
 
     <main>
+      <!-- This style tag inserts an image for the background -->
       <style type="text/css">
         #information-for-user {
           background-image: url("./assets/images/gourmet.jpg");
         }
       </style>
 
+<!-- This section will give a brief description for how to search foods and cocktails -->
       <section id="information-for-user">
         <div class="container">
           <div id="search-section" class="columns">
             <div class="column">
               <h1 class="is-size-3 has-text-primary-light">Hungry?</h1>
+              <!-- Brief description for searching dishes -->
               <p id="dish-text" class="has-text-primary-light  is-size-4">
                 Having a hard time deciding on what to eat? Let us help you through this process
                 of finding the right meal that will leave you satisfied!  Click the button below and look through our categories 
@@ -53,6 +56,7 @@
               >
                 Food
               </button>
+              <!-- This form will be displayed to the user when the food button is clicked in a modal -->
               <div id="dialog-form" title="Hungry?" style="display: none">
                 <!-- The dialog box container with the title "Drink Level Selection" -->
                 <form>
@@ -75,6 +79,8 @@
                   </select>
                 </form>
               </div>
+
+             <!-- This form will be displayed to the user when the Drink button is clicked in a modal -->
               <div id="cocktail-form" title="Alcohol Level Selection">
                 <form>
                   <label>Select option for Cocktail</label>
@@ -89,6 +95,7 @@
             </div>
             <div class="column">
               <h1 class="is-size-3 has-text-primary-dark">Thirsty?</h1>
+              <!-- Brief description of how to look for cocktails -->
               <p id = "cocktails-text" class="has-text-primary-dark is-size-4">
                 What's a good meal without a nice drink to go alongside it.  Whether
                 your looking for an aperitif before a meal, or maybe a special beverage to celebrate a certain event
@@ -103,7 +110,9 @@
         </div>
       </section>
 
+      <!-- This section will display the results of the category or random selection that was searched -->
       <section id="search-results" class="columns mt-6 mr-3 ml-3">
+        <!-- The dish-display id will render all the results cards for each dish -->
         <div id="dish-display" class="column" style="border: 2px solid #000">
           <div id="content" class="mt-4 scroll">
             <h2
@@ -115,6 +124,8 @@
           </div>   
           </div>
         </div>
+
+        <!-- The cocktail display id will render all the results in cards for each cocktail  -->
         <div
           id="cocktail-display"
           class="column"
@@ -134,6 +145,7 @@
       </section>
     </main>
 
+    <!-- CDN for jQuery and jQuery user interface -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
