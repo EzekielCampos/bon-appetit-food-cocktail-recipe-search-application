@@ -69,15 +69,6 @@ td {
   }
   
 
-@media (width<720px){
-
-    #information-for-user{
-        height: 800px;
-    }
-
-
-    
-}
 
 
 .cocktail-card {
@@ -88,6 +79,25 @@ td {
     height: auto;
 }
 
+
+@media (width<720px){
+
+    #information-for-user{
+        height: 800px;
+    }
+
+
+    
+}
+
+@media (width < 767px){
+    #cocktails-text{
+        font-size: 16px !important;
+    }
+    #dish-text{
+        font-size:16px !important;
+    }
+}
 
 
 
