@@ -75,12 +75,19 @@ function randomCocktailSelection(event){
       createCocktailCard(data);
     })
   })
-modal2.dialog("close");
+cocktailModal.dialog("close");
 }
 
 function retrieveCocktailsInfo(event) {
   // prevent page from refreshing
   event.preventDefault();
+  if(!cocktailInput.val()){
+    cocktailsResultsBox.empty();
+    let errorTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-warning").attr("style", "border-bottom: #000 2px solid").text("Invalid Selection. Try Again");
+cocktailsResultsBox.append(errorTitle);
+cocktailModal.dialog("close");
+return;
+  }
   console.log(cocktailInput.val());
   // This variable will be used in the loop section to keep track of what category the user chose when the api is called
 let category = cocktailInput.val();
@@ -144,10 +151,10 @@ let category = cocktailInput.val();
       });
   });
 
-  modal2.dialog("close");
+  cocktailModal.dialog("close");
 }
 // Creates a modal to find a cocktail button is clicked
-let modal2 = $("#cocktail-form").dialog({
+let cocktailModal = $("#cocktail-form").dialog({
   autoOpen: false,
   height: 200,
   width: 338,
@@ -159,11 +166,8 @@ let modal2 = $("#cocktail-form").dialog({
   },
   close: function () {
     cocktailInput.val("");
-    modal2.dialog("close");
+    cocktailModal.dialog("close");
   },
-});
-$("#drink-btn").on("click", function () {
-  modal2.dialog("open");
 });
 
 
@@ -220,6 +224,9 @@ $(document).ready(function () {
   }
   // Function to get a random food
   function getRandomFood() {
+    foodResultsBox.empty();
+    let resultsTitle = $("<h2>").attr("class", "has-text-centered is-size-3 has-text-primary").attr("style", "border-bottom: #000 2px solid").text("Food Results");
+foodResultsBox.append(resultsTitle);
     const foodRandom = {
       async: true,
       crossDomain: true,
@@ -331,5 +338,10 @@ $(document).ready(function () {
   $("#food-btn").on("click", function () {
     modal.dialog("open");
   });
+  // Opens the modal for the cocktails when the drinks button is clicked
+  $("#drink-btn").on("click", function () {
+    cocktailModal.dialog("open");
+  });
+
 });
 
