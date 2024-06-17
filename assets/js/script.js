@@ -1,8 +1,8 @@
 // This variable is where all the result cards will be appended to when they are dynamically created
 const cocktailsResultsBox = $("#cocktails-content");
 const cocktailInput = $("#drink-level");
-// This array will hold the favorite drinks names that the user have saved
-const favoriteCocktails = JSON.parse(localStorage.getItem("drinks")) || [];
+// This array will hold the favorite names that the user have saved
+const favoritesSaved = JSON.parse(localStorage.getItem("favorite")) || [];
 // This will keep track of which drink from alcoholic section array it is currently on while it is being iterated through
 let alcoholicCategoryIndex = 0;
 // This will keep track of which drink from the non-alcoholic section array it is currently on while it is being iterated through
@@ -170,6 +170,43 @@ let cocktailModal = $("#cocktail-form").dialog({
   },
 });
 
+// When the favorite button is clicked this function will run to collect the name of the drink
+function addToFavorites(event){
+  // Targets the button that was clicked and gets the name of the drink that is stored in the dataset attribute of the button
+  const targetFavorite = event.target.dataset.name;
+  console.log(targetFavorite);
+  // Push the name of the drink into the favorite array
+  favoritesSaved.push(targetFavorite);
+  console.log(favoritesSaved);
+  // Save the updated version into local storage
+  localStorage.setItem("favorite", JSON.stringify(favoritesSaved));
+}
+
+function displayFavoritesInHeader(){
+  const title = $("<option>").text("Favorites");
+  $("#favorite-list").empty();
+  if(!favoritesSaved.length){
+    let list = $("<option>").text("No favorites saved");
+    
+  
+    $("#favorite-list").append(title, list);
+  }
+
+  else{
+    $("#favorite-list").append(title);
+
+    for (favorite of favoritesSaved){
+  
+      let list = $("<option>").text(favorite);
+      console.log(favorite);
+      $("#favorite-list").append(list);
+    
+    }
+  
+  }
+
+}
+
 
 $(document).ready(function () {
   function retrieveMealInfo(event) {
@@ -294,7 +331,7 @@ foodResultsBox.append(resultsTitle);
           <a href="${food.strYoutube}" class="card-footer-item">Watch Recipe</a>
           <button id="fav-btn" data-name="${
             food.strMeal
-          } 🍽️" class="card-footer-item">Add to Favorites</button>
+          } 🍽️" class="card-footer-item has-background-warning">Add to Favorites</button>
         </footer>
       </div>
     `;
@@ -343,5 +380,8 @@ foodResultsBox.append(resultsTitle);
     cocktailModal.dialog("open");
   });
 
+  // This event listener will wait for any button that is clicked that has an id of fav-btn and run the function
+$(document).on("click", "#fav-btn",addToFavorites);
+$(".select").on("click", displayFavoritesInHeader);
 });
 
